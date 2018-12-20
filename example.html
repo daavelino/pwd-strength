@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>pwd-strength example</title>
+  </head>
+  <body>
+    <br>
+    <br>
+    <div>
+      <label for="username">Username:</label>
+      <input required type="text" id="username" name="username" size="18">
+      <br>
+      <label for="passwd">Password <small>(8 characters minimum)</small>:</label>
+      <input required type="password" id="password" name="password" minlenght="8" size=20" onkeyup="pwdStrength()">
+      <br>
+      <br>
+      <input type="submit" value="Sign in">
+
+      <script src="./code.js"></script>
+
+    </div>
+  </body>
+</html>
