@@ -8,14 +8,16 @@
     <br>
     <br>
     <div>
-      <label for="username">Username:</label>
-      <input required type="text" id="username" name="username" size="18">
-      <br>
-      <label for="passwd">Password <small>(8 characters minimum)</small>:</label>
-      <input required type="password" id="password" name="password" minlenght="8" size=20" onkeyup="pwdStrength()">
+      <label id="password_label" for="password">Password :</label>
+      <input id="password" required type="password" minlenght="8" size=20" onkeyup="pwdStrength()">
+      <span id="security-label"></span>
       <br>
       <br>
-      <input type="submit" value="Sign in">
+      <button id="clear_button" onclick="clear_data()">Clear</button>
+      <br>
+      <br>
+      <span id="parameters"></span>
+      <br>
 
       <script src="./code.js"></script>
 
