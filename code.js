@@ -65,11 +65,22 @@ function num_combination(n, k) {
   return factorial(n + k - 1) / factorial(k);
 }
 
+function suffle(array) {
+  var  m = array.length, t, i;
+  while(m) {
+    i = Math.floor(Math.random() * m--);
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+  return array;
+}
 
 function* word_generator(array, size) {
   // Generates all possible combinations of size-length words 
   // from an array of characters: 
-  let chars = array.join("");
+  let tmp = suffle(array);
+  let chars = tmp.join("");
 
   //Generate the first word for the password length 
   //by the repetition of first character.
@@ -93,6 +104,7 @@ function* word_generator(array, size) {
         word = word.substr(0, k) + char + word.substr(k + char.length);
       }
     }
+//    console.log(word)
     yield word;
   }
 }
@@ -142,7 +154,7 @@ function evaluate(metric) {
     let min = security_range[actual_key][0] / 100;
     let max = security_range[actual_key][1] / 100;
     if (metric >= min && metric <= max) {
-      return(actual_key);
+      return actual_key;
     }
   }
 }
@@ -151,23 +163,22 @@ function breakit() {
     let password = document.getElementById("password").value;
     let password_length = password.length;
     let password_alphabet = getUnique(password);
-    let seed = password_alphabet.join("");
-
     let passwords = word_generator(password_alphabet, password_length);
-    let counter = 0;
+    let counter = 1;
     let tmp;
+
     while(tmp = passwords.next()) {
       if (counter > max_break_attempts) {
-	document.getElementById("break_result").innerHTML = "Max. attempts limit reached: "+format_number(max_attempts)+". Not broken.";
+	document.getElementById("break_result").innerHTML = "Max. attempts limit reached: "+format_number(max_break_attempts)+". Not broken.";
         break;
       }
       if (tmp.value === password) {
-	document.getElementById("break_result").innerHTML = "Attempts until find it: "+format_number(counter);
+	document.getElementById("break_result").innerHTML = "Attempts until find it (random start): "+format_number(counter);
         break;
       }
       counter = counter + 1;
   }
-  return(counter);
+  return counter;
 }
 
 function pwdStrength() {
@@ -226,7 +237,9 @@ function pwdStrength() {
       + "<br>" 
       + "Password alphabet: "+getUnique(password) 
       + "<br>" 
-      + "Max. # of attempts to sweep the password space: "+format_number(num_combination(password_length, password_alphabet_length), 0)
+      + "Max. # of attempts to sweep the password space: "+format_number(num_combination(password_length, symbol_count), 0)
+      + "<br>"
+      + "Max. # of attempts to break it: "+format_number(num_combination(password_length, password_alphabet_length), 0)
       + "<br>"
       + "<br>"
       + "<button id='simulate_break_it' onclick='breakit()'>Simulate breaking it?</button>"
