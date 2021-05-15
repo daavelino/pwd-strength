@@ -8,7 +8,22 @@
     <h1>Welcome to pwd-strength!</h1>
     <h4>Please do not use real passwords here.</h4>
     <br>
-    <br>
+    <div>
+      <p>What makes a good password, mathematically speaking?</p>
+      <ol>
+        <li>An <b>entropy</b> close to a same-size password, considering the alphabet's entropy.
+	  <br>
+	  <small>(The same-size password entropy is the best one can achieve, consider the per-symbol alphabet's entropy.)</small>
+	</li>
+        <li>A <b>password alphabet</b> large enough to increase its entropy.
+	  <br>
+	  <small>(The length doesn't matter if its password's alphabet is small.)</small>
+	</li>
+      </ol>
+      </p>
+      <br>
+      <br>
+    </div>
     <div>
       <label id="password_label" for="password">Password :</label>
       <input id="password" required type="password" minlenght="8" size=20" onkeyup="pwdStrength()">

@@ -236,11 +236,11 @@ function pwdStrength() {
       + "<br>" 
       + "Provided password length: "+password_length 
       + "<br>" 
-      + "Password entropy: "+format_number(password_entropy, 3)+" bits" 
+      + "Password entropy: <b>"+format_number(password_entropy, 3)+"</b> bits" 
       + "<br>" 
-      + "Alphabet's same-sized password entropy: "+format_number(search_space_entropy, 3)+" bits"
+      + "Alphabet's same-sized password entropy: <b>"+format_number(search_space_entropy, 3)+"</b> bits"
       + "<br>" 
-      + "Password alphabet size: "+password_alphabet_length
+      + "Password alphabet size: <b>"+password_alphabet_length+"</b>"
       + "<br>" 
       + "Password alphabet: "+getUnique(password) 
       + "<br>" 
