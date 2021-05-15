@@ -244,6 +244,8 @@ function pwdStrength() {
       + "<br>"
       + "<button id='simulate_break_it' onclick='breakit()'>Simulate breaking it?</button>"
       + "<br>"
+      + "<small>* large passwords can crash your browser.</small>"
+      + "<br>"
       + "<br>"
       +"<span id='break_result'></span>";
   }
