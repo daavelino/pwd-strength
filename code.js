@@ -56,7 +56,6 @@ function factorial(n) {
 }
 
 function num_combination(n, k) {
-  // Credits: https://medium.com/geekculture/generating-all-possible-combinations-of-string-characters-in-javascript-8e5a5ea2b9bd
   // The number of permutations of k objects from a set of n elements:
   return factorial(n + k - 1) / factorial(k);
 }
@@ -65,6 +64,7 @@ function num_combination(n, k) {
 /*
  * Generate all possible combinations from a list of characters for a given length
  */
+  // Credits: https://medium.com/geekculture/generating-all-possible-combinations-of-string-characters-in-javascript-8e5a5ea2b9bd
 function* charCombinations (chars, minLength, maxLength) {
   chars = typeof chars === 'string' ? chars : '';
   minLength = parseInt(minLength) || 0;
@@ -154,7 +154,7 @@ function evaluate(metric) {
 }
 
 function breakit() {
-    let max_attempts = 10000000;
+    let max_attempts = 1000000000;
     let password = document.getElementById("password").value;
     let password_length = password.length;
     let password_alphabet = getUnique(password);
