@@ -104,7 +104,6 @@ function* word_generator(array, size) {
         word = word.substr(0, k) + char + word.substr(k + char.length);
       }
     }
-//    console.log(word)
     yield word;
   }
 }
@@ -187,6 +186,7 @@ function pwdStrength() {
   const alphabet_choice = 8; //All ASCII printable characters. 
   let symbol_count = default_alphabet[alphabet_choice]["count"]; 
   let entropy_per_symbol = Math.log(symbol_count) / Math.log(2);
+  let alphabet_entropy = min_password_length * entropy_per_symbol;
   let password = "";
   let password_alphabet = [];
   let seed = "";
@@ -207,7 +207,12 @@ function pwdStrength() {
   // (in bits):
   password_entropy = word_entropy(password, symbol_count);
 
-  metric = (password_entropy / search_space_entropy);
+  if (password_length < min_password_length) {
+    weigth = (password_length * alphabet_entropy) - search_space_entropy;
+    metric = password_entropy / (search_space_entropy + weigth);
+  } else {
+    metric = password_entropy / search_space_entropy;
+  }
   evaluation = evaluate(metric);
 
   password_alphabet = getUnique(password);
@@ -224,7 +229,7 @@ function pwdStrength() {
       + "<br>"
       + "Min. expected password length: "+min_password_length 
       + "<br>" 
-      + "Alphabet's "+min_password_length+"-length password entropy: "+format_number((min_password_length * entropy_per_symbol), 3)+" bits" 
+      + "Alphabet's "+min_password_length+"-length password entropy: "+format_number(alphabet_entropy, 3)+" bits" 
       + "<br>" 
       + "<br>" 
       + "Provided password length: "+password_length 
