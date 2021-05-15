@@ -253,6 +253,8 @@ function pwdStrength() {
       + "<br>"
       + "<small>* large passwords can crash your browser.</small>"
       + "<br>"
+      + "<small>* The break simulation is performed taking the password alphabet as input. </small>"
+      + "<br>"
       + "<br>"
       + "<input id='disable_max_limit' type='checkbox'>"
       + "<label for='disable_max_limit'><small> Disable limit for attempts?</small></label>"
