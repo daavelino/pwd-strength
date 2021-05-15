@@ -159,6 +159,8 @@ function evaluate(metric) {
 }
 
 function breakit() {
+    let limit = max_break_attempts;
+    let disable_max_limit = document.getElementById("disable_max_limit").value;
     let password = document.getElementById("password").value;
     let password_length = password.length;
     let password_alphabet = getUnique(password);
@@ -167,12 +169,12 @@ function breakit() {
     let tmp;
 
     while(tmp = passwords.next()) {
-      if (counter > max_break_attempts) {
-	document.getElementById("break_result").innerHTML = "Max. attempts limit reached: "+format_number(max_break_attempts)+". Not broken.";
+      if (counter > limit && disable_max_limit === "on") {
+	document.getElementById("break_result").innerHTML = "Max. attempts limit reached: "+format_number(limit)+". Not broken.";
         break;
       }
       if (tmp.value === password) {
-	document.getElementById("break_result").innerHTML = "Attempts until find it (random start): "+format_number(counter);
+	document.getElementById("break_result").innerHTML = "Found! Attempts until find it (random start): "+format_number(counter);
         break;
       }
       counter = counter + 1;
@@ -250,6 +252,10 @@ function pwdStrength() {
       + "<button id='simulate_break_it' onclick='breakit()'>Simulate breaking it?</button>"
       + "<br>"
       + "<small>* large passwords can crash your browser.</small>"
+      + "<br>"
+      + "<br>"
+      + "<input id='disable_max_limit' type='checkbox'>"
+      + "<label for='disable_max_limit'><small> Disable limit for attempts?</small></label>"
       + "<br>"
       + "<br>"
       +"<span id='break_result'></span>";
