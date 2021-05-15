@@ -11,6 +11,7 @@
 */
 
 const min_password_length = 12;
+const max_break_attempts = 1000000000;
 const default_alphabet = {
   1:{"name":"Arabic numerals (0–9)","count":10},
   2:{"name":"hexadecimal numerals (0–9, A–F)","count":16},
@@ -45,8 +46,11 @@ function format_number(number, digits) {
 
 function factorial(n) {
   // Mathematical factorial of the number n:
-  if (typeof n !== 'number') {
-    return 1;
+  if (isNaN(n)) {
+    return null;
+  }
+  if (n < 0) {
+    return null;
   }
   if (n === 0) {
     return 1;
@@ -62,47 +66,37 @@ function num_combination(n, k) {
 }
 
 
-/*
- * Generate all possible combinations from a list of characters for a given length
- */
-  // Credits: https://medium.com/geekculture/generating-all-possible-combinations-of-string-characters-in-javascript-8e5a5ea2b9bd
-function* charCombinations (chars, minLength, maxLength) {
-  chars = typeof chars === 'string' ? chars : '';
-  minLength = parseInt(minLength) || 0;
-  maxLength = Math.max(parseInt(maxLength) || 0, minLength);
+function* word_generator(array, size) {
+  // Generates all possible combinations of size-length words 
+  // from an array of characters: 
+  let chars = array.join("");
 
-  //Generate for each word length
-  for (i = minLength; i <= maxLength; i++) {
+  //Generate the first word for the password length 
+  //by the repetition of first character.
+  let word = (chars[0] || '').repeat(size);
+  yield word;
 
-    //Generate the first word for the password length by the repetition of first character.
-    word = (chars[0] || '').repeat(i);
-    yield word;
+  //Generate other possible combinations for the word
+  //Total combinations will be chars.length raised to power of word.length
+  //Make iteration for all possible combinations
+  for (j = 1; j < Math.pow(chars.length, size); j++) {
 
-    //Generate other possible combinations for the word
-    //Total combinations will be chars.length raised to power of word.length
-    //Make iteration for all possible combinations
-    for (j = 1; j < Math.pow(chars.length, i); j++) {
+    //Make iteration for all indices of the word
+    for(k = 0; k < size; k++) {
 
-      //Make iteration for all indices of the word
-      for(k = 0; k < i; k++) {
+      //check if the current index char need to be flipped to the next char.
+      if(!(j % Math.pow(chars.length, k))) {
 
-        //check if the current index char need to be flipped to the next char.
-        if(!(j % Math.pow(chars.length, k))) {
-
-          // Flip the current index char to the next.
-          let charIndex = chars.indexOf(word[k]) + 1;
-          char = chars[charIndex < chars.length ? charIndex : 0];
-          word = word.substr(0, k) + char + word.substr(k + char.length);
-        }
+        // Flip the current index char to the next.
+        let charIndex = chars.indexOf(word[k]) + 1;
+        char = chars[charIndex < chars.length ? charIndex : 0];
+        word = word.substr(0, k) + char + word.substr(k + char.length);
       }
-
-      //Re-oder not neccesary but it makes the words are yeilded alphabetically on ascending order.
-      yield word.split('').reverse().join('');
     }
+    console.log(word);
+    yield word;
   }
 }
-
-
 
 function clear_data() {
   document.getElementById("password").value = "";
@@ -155,22 +149,20 @@ function evaluate(metric) {
 }
 
 function breakit() {
-    let max_attempts = 1000000000;
     let password = document.getElementById("password").value;
     let password_length = password.length;
     let password_alphabet = getUnique(password);
     let seed = password_alphabet.join("");
 
-    let passwords = charCombinations(seed, password_length, password_length);
+    let passwords = word_generator(password_alphabet, password_length);
     let counter = 0;
     let tmp;
     while(tmp = passwords.next()) {
-      if (counter > max_attempts) {
+      if (counter > max_break_attempts) {
 	document.getElementById("break_result").innerHTML = "Max. attempts limit reached: "+format_number(max_attempts)+". Not broken.";
         break;
       }
       if (tmp.value === password) {
-        console.log("Attempts until find: "+counter)
 	document.getElementById("break_result").innerHTML = "Attempts until find it: "+format_number(counter);
         break;
       }
@@ -211,36 +203,38 @@ function pwdStrength() {
   password_alphabet = getUnique(password);
   password_alphabet_length = password_alphabet.length;
   seed = password_alphabet.join("");
-
-  // Format HTML results:
-  document.getElementById("security-label").innerHTML = evaluation;
-  let html_text = document.getElementById("parameters").innerHTML = 
-    "Password strengthness: "+evaluation 
-    + "<br>"
-    + "Evaluated alphabet: " + default_alphabet[alphabet_choice]["name"]
-    + "<br>"
-    + "Min. password length: "+min_password_length 
-    + "<br>" 
-    + "Password length: "+password_length 
-    + "<br>" 
-    + "Min. password entropy: "+format_number((min_password_length * entropy_per_symbol), 3)+" bits" 
-    + "<br>" 
-    + "Password entropy: "+format_number(password_entropy, 3)+" bits" 
-    + "<br>" 
-    + "Alphabet's same-sized password entropy: "+format_number(search_space_entropy, 3)+" bits"
-    + "<br>" 
-    + "Password alphabet size: "+password_alphabet_length
-    + "<br>" 
-    + "Password alphabet: "+getUnique(password) 
-    + "<br>" 
-    + "Max. # of attempts to sweeps: "+format_number(num_combination(password_length, password_alphabet_length), 0)
-    + "<br>"
-    + "<br>"
-    + "<button id='clear_button' onclick='breakit()'>Simulate breaking it?</button>"
-    + "<br>"
-    + "<br>"
-    +"<span id='break_result'></span>";
-
+  
+  if (password_length > 0) {
+    // Format HTML results:
+    document.getElementById("security-label").innerHTML = evaluation;
+    let html_text = document.getElementById("parameters").innerHTML = 
+      "Password strengthness evaluation: "+evaluation 
+      + "<br>"
+      + "Evaluated alphabet: "+default_alphabet[alphabet_choice]["name"]
+      + "<br>"
+      + "Min. expected password length: "+min_password_length 
+      + "<br>" 
+      + "Alphabet's "+min_password_length+"-length password entropy: "+format_number((min_password_length * entropy_per_symbol), 3)+" bits" 
+      + "<br>" 
+      + "<br>" 
+      + "Provided password length: "+password_length 
+      + "<br>" 
+      + "Password entropy: "+format_number(password_entropy, 3)+" bits" 
+      + "<br>" 
+      + "Alphabet's same-sized password entropy: "+format_number(search_space_entropy, 3)+" bits"
+      + "<br>" 
+      + "Password alphabet size: "+password_alphabet_length
+      + "<br>" 
+      + "Password alphabet: "+getUnique(password) 
+      + "<br>" 
+      + "Max. # of attempts to sweep the password space: "+format_number(num_combination(password_length, password_alphabet_length), 0)
+      + "<br>"
+      + "<br>"
+      + "<button id='clear_button' onclick='breakit()'>Simulate breaking it?</button>"
+      + "<br>"
+      + "<br>"
+      +"<span id='break_result'></span>";
+  }
 }
 
 
