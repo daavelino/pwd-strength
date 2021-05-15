@@ -8,7 +8,7 @@
   https://en.wikipedia.org/wiki/Password_strength#Entropy_as_a_measure_of_password_strength 
 
   for a conceptual overview.
-  */
+*/
 
 const min_password_length = 12;
 const default_alphabet = {
@@ -56,7 +56,8 @@ function factorial(n) {
 }
 
 function num_combination(n, k) {
-  // The number of permutations of k objects from a set of n elements:
+  // The number of combinations _with_ repetition of k objects 
+  // from a set of n elements:
   return factorial(n + k - 1) / factorial(k);
 }
 
@@ -214,15 +215,19 @@ function pwdStrength() {
   // Format HTML results:
   document.getElementById("security-label").innerHTML = evaluation;
   let html_text = document.getElementById("parameters").innerHTML = 
-    "Evaluation: "+evaluation 
+    "Password strengthness: "+evaluation 
+    + "<br>"
+    + "Evaluated alphabet: " + default_alphabet[alphabet_choice]["name"]
     + "<br>"
     + "Min. password length: "+min_password_length 
     + "<br>" 
-    + "Min. password entropy: "+format_number((min_password_length * entropy_per_symbol), 3)+" bits" 
-    + "<br>" 
     + "Password length: "+password_length 
     + "<br>" 
+    + "Min. password entropy: "+format_number((min_password_length * entropy_per_symbol), 3)+" bits" 
+    + "<br>" 
     + "Password entropy: "+format_number(password_entropy, 3)+" bits" 
+    + "<br>" 
+    + "Alphabet's same-sized password entropy: "+format_number(search_space_entropy, 3)+" bits"
     + "<br>" 
     + "Password alphabet size: "+password_alphabet_length
     + "<br>" 
