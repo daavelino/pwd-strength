@@ -93,7 +93,6 @@ function* word_generator(array, size) {
         word = word.substr(0, k) + char + word.substr(k + char.length);
       }
     }
-    console.log(word);
     yield word;
   }
 }
@@ -230,7 +229,7 @@ function pwdStrength() {
       + "Max. # of attempts to sweep the password space: "+format_number(num_combination(password_length, password_alphabet_length), 0)
       + "<br>"
       + "<br>"
-      + "<button id='clear_button' onclick='breakit()'>Simulate breaking it?</button>"
+      + "<button id='simulate_break_it' onclick='breakit()'>Simulate breaking it?</button>"
       + "<br>"
       + "<br>"
       +"<span id='break_result'></span>";
