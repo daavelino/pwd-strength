@@ -5,7 +5,7 @@ This project tries to address and propose a solution for the comment at [NIST SP
 
 _Complexity of user-chosen passwords has often been characterized using the information theory concept of entropy [Shannon]. While entropy can be readily calculated for data having deterministic distribution functions, estimating the entropy for user-chosen passwords is difficult and past efforts to do so have not been particularly accurate. For this reason, a different and somewhat simpler approach, based primarily on password length, is presented herein._
 
-Actually , estimate the entropy of user-chosen passwords is not that difficult or inaccurate as NIST says. And conceptually, it should be taken into consideration since primarily base the quality of a password in its length can lead to other problems instead of solving them. 
+Actually, estimate the entropy of user-chosen passwords is not that difficult or inaccurate as has been stated on the NIST's document. AAnd, as a matter of completeness, it should be taken into consideration since primarily base the quality of a password in its length can lead to other problems instead of solving them. 
 For example, the password 
 
 `000000000000000000000000000000000000000` (40 digits)
