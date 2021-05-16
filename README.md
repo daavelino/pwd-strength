@@ -10,9 +10,13 @@ For example, the password
 
 `000000000000000000000000000000000000000` (40 digits)
 
-is very large but in no way a good one. A combination of both, entropy and size should be the best approach to address the question and that is what this project is about.
+is very large but in no way a good one. A combination of both, entropy and size should be the best approach to address the question and that is what this project is about. 
 
-So, let's calculate some entropy for user-chosen passwords and check how difficult, in fact, it is.
+> As a matter of comparison, this project categorize the password above as `weak`. [howsecureismypassword.net](https://howsecureismypassword.net/) says it would be required **7 hundred quintillion years** to crack it. Which one makes more sense to you?
+
+In any case, let's calculate some entropy for user-chosen passwords and check how difficult, in fact, it is to break it. I bet you'll be surprised by the results.
+
+Enjoy!
 
 #### Usage:
 ```sh 
