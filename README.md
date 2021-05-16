@@ -10,7 +10,7 @@ For example, the password
 
 `000000000000000000000000000000000000000` (40 digits)
 
-is very large but in no way a good one. A combination of both, entropy and size should be the best approach to address the question and that is what this project is about. 
+is very large but in no way a good one. A combination of both, entropy and length should be the best approach to address the question and that is what this project is about. 
 
 > As a matter of comparison, this project categorize the password above as `weak`. [howsecureismypassword.net](https://howsecureismypassword.net/) says it would be required **7 hundred quintillion years** to crack it. Which one makes more sense to you?
 
