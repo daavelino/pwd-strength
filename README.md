@@ -42,7 +42,7 @@ The following values can only be changed in the code.js file:
 ## Some considerations about passwords:
 
 #### What are passwords?
-Passwords are those sequences of characters required as a proof of identity in an authentication system. A more interesting question, however, would be _what passwords are used for?_ They are used as a testemony (or token) of an identity. Authentication systems are instructed to associate a system-user identity to an entity, or claimant (a human being, a computer, a software, etc..), once this entity provides the correct password. (More specifically, once the entity provides the correct set of credential information, which could be the combination of _username_ and _password_ or even an additional authentication factor.
+Passwords are those sequences of characters required as a proof of identity in an authentication system. A more interesting question, however, would be _what passwords are used for?_ They are used as a testemony (or token) of an identity. Authentication systems are instructed to associate a system-user identity to an entity, or claimant (a human being, a computer, a software, etc..), once this entity provides the correct password. (More specifically, once the entity provides the correct set of credential information, which could be the combination of _username_ and _password_ or even an additional authentication factor)
 
 #### What makes a good password?
 Basically, the following two things
