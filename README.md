@@ -1,5 +1,5 @@
 # pwd-length
-A concept intended to calculate the strengthness of a password based on its entropy and, optionally, a visualization about the required effort to crack it via simple bruteforce.
+A concept intended to calculate the strengthness of a password based on its entropy and, optionally, a simulation about the required effort to crack it via simple bruteforce.
 
 This project tries to address and propose a solution for the comment at [NIST SP 800-63-b, Appendix A—Strength of Memorized Secrets](https://pages.nist.gov/800-63-3/sp800-63b.html#appendix-astrength-of-memorized-secrets) which says:
 
