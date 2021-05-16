@@ -80,7 +80,27 @@ So it seems that the criteria to determine if a user-choosen password is good en
 ## How the project works?
 
 #### The project structure:
-The project has been splitted into 2 files: code.js and index.html. code.js deals with all Javascript code required to build and process the data. index.html is the HTML 'holder' for the project.
+The project has been splitted into 2 files: `code.js` and `index.html`. code.js deals with all Javascript code required to build and process the data. index.html is the HTML 'holder' of the project, that receives the input from the user and present the results.
 
+#### How the password entropy is calculated?
+The password entropy is calculated by using the function `word_entropy(word, alphabet_length)`:
 
+```javascript
+function word_entropy(word, alphabet_length) {
+  // H = L (log N / log 2), where L is the number of symbols in the word 
+  // and N is the number of possible symbols in the alphabet 
+  // (or the alphabet size).
+  // Returns the entropy value in bits or zero, for a word with length 0:
+  if (word.length == 0) {
+    return 0;
+  } else {
+    L = getUnique(word);
+    L = L.length;
+    return L * (Math.log(alphabet_length) / Math.log(2));
+  }
+}
+```
+The idea here is to apply the Boltzmann formula for the entropy `S = kln(omega)` where `omega` is the number of accessible states of a system (which is N^L). A simple math reveals that the value of the entropy H would be 
+`H = L(log N /log 2`,
+providing the value of the entropy in terms of the number of bits. (That's the reason why it is necessary to divide it by log 2).
 
