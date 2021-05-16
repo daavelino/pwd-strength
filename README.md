@@ -14,7 +14,7 @@ is very large but in no way a good one. A combination of both, entropy and lengt
 
 > As a matter of comparison, this project categorize the password above as `weak`. [howsecureismypassword.net](https://howsecureismypassword.net/) says it would be required **7 hundred quintillion years** to crack it. Which one makes more sense to you?
 
-In any case, let's calculate some entropy for user-chosen passwords and check how difficult, in fact, it is to crack it. I bet you'll be surprised by the results.
+In any case, let's calculate some entropy for user-chosen passwords and check how difficult, in fact, it is to crack them. I bet you'll be surprised by the results.
 
 Enjoy!
 
