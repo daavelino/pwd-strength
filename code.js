@@ -88,8 +88,6 @@ function* word_generator(array, size) {
   yield word;
 
   //Generate other possible combinations for the word
-  //Total combinations will be chars.length raised to power of word.length
-  //Make iteration for all possible combinations
   for (j = 1; j < Math.pow(chars.length, size); j++) {
 
     //Make iteration for all indices of the word
