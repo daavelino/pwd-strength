@@ -10,9 +10,8 @@
   for a conceptual overview.
 */
 
-const min_password_length = 12;
 const max_break_attempts = 1000000000;
-const default_alphabet = {
+const alphabets = {
   1:{"name":"Arabic numerals (0–9)","count":10},
   2:{"name":"hexadecimal numerals (0–9, A–F)","count":16},
   3:{"name":"Case insensitive Latin alphabet (a–z or A–Z)","count":26},
@@ -25,6 +24,7 @@ const default_alphabet = {
   10:{"name":"Binary (0–255 or 8 bits or 1 byte)","count":256},
   11:{"name":"Diceware word list","count":7776}
 };
+const default_alphabet = alphabets[8];
 
 const security_range = {
   "excellent":[80,100],
@@ -35,9 +35,9 @@ const security_range = {
 }
 
 // HTML presets:
-document.getElementById("password_label").innerHTML="Password <small>("
-  +min_password_length+" characters minimum)</small>:";
+document.getElementById("password_label").innerHTML="Password <small>(min. length)</small> <input id='min_password_length' type='number' value='12' min='0' placeholder='length' style='width:3em' onchange='pwdStrength()'>";
 document.getElementById("password").focus();
+
 
 function format_number(number, digits) {
   // Format numbers for better visualization:
@@ -184,9 +184,8 @@ function breakit() {
 
 function pwdStrength() {
   // Calculates the strenghness of the password:
-
-  const alphabet_choice = 8; //All ASCII printable characters. 
-  let symbol_count = default_alphabet[alphabet_choice]["count"]; 
+  let min_password_length = document.getElementById("min_password_length").value;
+  let symbol_count = default_alphabet["count"]; 
   let entropy_per_symbol = Math.log(symbol_count) / Math.log(2);
   let alphabet_entropy = min_password_length * entropy_per_symbol;
   let password = "";
@@ -196,10 +195,14 @@ function pwdStrength() {
   let password_entropy = 0;
   let search_space_entropy = 0;
   let evaluation = "";
+  let checkmark = "&#x2713;";
 
   // Get the value at input each time user type a new character.
   password = document.getElementById("password").value;
   password_length = password.length;
+
+  // Defining the stylistic checkmark:
+  checkmark = (password_length >= min_password_length) ? "&#x2713;":""; 
 
   // The entropy of a same-size random word on the chosen alphabet space 
   // (in bits):
@@ -227,14 +230,14 @@ function pwdStrength() {
     let html_text = document.getElementById("parameters").innerHTML = 
       "Password strengthness evaluation: "+evaluation 
       + "<br>"
-      + "Evaluated alphabet: "+default_alphabet[alphabet_choice]["name"]
+      + "Evaluated alphabet: "+default_alphabet["name"]
       + "<br>"
       + "Min. expected password length: "+min_password_length 
       + "<br>" 
       + "Alphabet's "+min_password_length+"-length password entropy: "+format_number(alphabet_entropy, 3)+" bits" 
       + "<br>" 
       + "<br>" 
-      + "Provided password length: "+password_length 
+      + "Provided password length: "+password_length+" "+checkmark 
       + "<br>" 
       + "Password entropy: <b>"+format_number(password_entropy, 3)+"</b> bits" 
       + "<br>" 
@@ -246,7 +249,7 @@ function pwdStrength() {
       + "<br>" 
       + "Max. # of attempts to sweep the password space: "+format_number(num_combination(password_length, symbol_count), 0)
       + "<br>"
-      + "Max. # of attempts to break it: "+format_number(num_combination(password_length, password_alphabet_length), 0)
+      + "Max. # of attempts until break it: "+format_number(num_combination(password_length, password_alphabet_length), 0)
       + "<br>"
       + "<br>"
       + "<button id='simulate_break_it' onclick='breakit()'>Simulate breaking it?</button>"
