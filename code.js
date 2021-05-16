@@ -35,7 +35,7 @@ const security_range = {
 }
 
 // HTML presets:
-document.getElementById("password_label").innerHTML="Password <small>(min. length)</small> <input id='min_password_length' type='number' value='12' min='0' placeholder='length' style='width:3em' onchange='pwdStrength()'>";
+document.getElementById("password_label").innerHTML="Password <small>(min. length)</small> <input id='min_password_length' type='number' value='8' min='0' placeholder='length' style='width:3em' onchange='pwdStrength()'>";
 document.getElementById("password").focus();
 
 
