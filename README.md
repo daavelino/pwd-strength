@@ -38,14 +38,17 @@ Basically, the following two things
 * Its entropy (to make it hard to guess)
 * Its secrecy (to make it hard to be used by others)
 
+Its **length** is not really a requirement but a requirement to satisfy an acceptable entropy value. If it is not possible to generate a short password with good entropy, a large one but less random would be an alternative.
+
 #### A personal note about leaked password lists:
 Lists of leaked passwords became are very popular nowadays and even became incorporated into some products as a mean to avoid leaked passwords reuse on some services. They are also used to compose those famous lists of "Top most used passwords of the year" and even NIST recommend their usage (see below). I personally discourage the usage of such lists for 2 reasons:
 1. the **moral aspects** of using leaked data to address a problem. (even thought the data is "anonimyzed"), 
 2. the **lack of purpose** in using these lists instead of address the real problem of creating better passwords. This is the laziness solution for the problem.
 
-My point consists in another two things:
+My point considers the following things:
 1. mathematically, **most of those most used passwords are good passwords**. The problem is that they became somehow guessable and that's what we should help to solve. Enabling ordinary people to create good passwords.
-2. Passwords will be eventually reused and there's nothing we can do about it. It is a mathematical fact! If you don't believe me, [at least their hashes will](https://en.wikipedia.org/wiki/Hash_collision_(computer_science)!
+2. **Passwords will be eventually reused** and there's nothing we can do about it. It is a mathematical fact! If you don't believe me, [at least their hashes will](https://en.wikipedia.org/wiki/Hash_collision_(computer_science)!
+3. The reason why we have such a prevalent passwords (on the leaked lists) is not really known. It might be that people just keep using them in all the services they use but also that **they choose to use them in services they don't care that much and keep the good ones for the services they do really care**. Observe the second one is interesting because it could provide an idea to business designers about how necessary the authentication mechanism in their services really is. I have the impression that nowadays authentication is supposed to be provided by default, even thought that the usage of passwords that cannot assure authentication is still relevant. Many people give up using a determined service after a trial or two and, since even for a trial a password is required, **it is not a bad strategy to use bad passwords for this purpose**. I think what happens in these cases is that,if the person likes the system, he or she changes the password for a good one. If not, eventually those passwords leak and end composing those refered lists. But it is reallly hard to understand what is the case nowadays... My idea here is just offer another perspective to the problem.
 
 #### NIST sp-800-63b:
 * NIST sp-800-63b, _Digital Identities Guidelines - Authentication and Lifecycle Management_ (June 2017, includes updates as of 03-02-2020) in its [Section 5.1: Requirements by Authenticator Type](https://pages.nist.gov/800-63-3/sp800-63b.html#reqauthtype) says:
