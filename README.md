@@ -100,7 +100,13 @@ function word_entropy(word, alphabet_length) {
   }
 }
 ```
-The idea here is to apply the Boltzmann formula for the entropy `S = kln(omega)` where `omega` is the number of accessible states of a system (which is N^L). A simple math reveals that the value of the entropy H would be 
+The idea here is to apply the Boltzmann formula for the entropy `S = kln(omega)` where `omega` is the number of accessible states of a system, which is N^L, where L is the number of symbols in the password i.e. its alphabet and N is the number of possible symbols in a given alphabet, used to generate the password. Check [here](https://en.wikipedia.org/wiki/Password_strength#Entropy_as_a_measure_of_password_strength) for a detailed explanation. A simple math reveals that the value of the password entropy H would be 
 `H = L(log N /log 2`,
 providing the value of the entropy in terms of the number of bits. (That's the reason why it is necessary to divide it by log 2).
+
+That's how the password entropy is calculated in this project. Notice that, if the length of the password is 0, its entropy is also zero.
+
+The function `getUnique(word)` is used here to compute the number of unique symbols in a given password.
+
+
 
