@@ -76,3 +76,11 @@ The document provides an appendix [Appendix A—Strength of Memorized Secrets](h
 3. A.3 Complexity: _For this reason, it is recommended that passwords chosen by users be compared against a “black list” of unacceptable passwords. This list should include passwords from previous breach corpuses, dictionary words, and specific words (such as the name of the service itself) that users are likely to choose. Since user choice of passwords will also be governed by a minimum length requirement, this dictionary need only include entries meeting that requirement._
 
 So it seems that the criteria to determine if a user-choosen password is good enough needs to take into consideration the complexity of the password but an objective criteria to determine password's complexity is still missing.
+
+## How the project works?
+
+#### The project structure:
+The project has been splitted into 2 files: code.js and index.html. code.js deals with all Javascript code required to build and process the data. index.html is the HTML 'holder' for the project.
+
+
+
