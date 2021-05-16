@@ -16,7 +16,7 @@ python3 -m http.server
 and point your browser to 
 >http://localhost:8000
 
-You should see a the following page:
+You should see the following page:
 
 ![Interface](https://github.com/daavelino/pwd-strength/blob/master/imgs/pwd-strength.png)
 
