@@ -38,7 +38,7 @@ Basically, the following two things
 * Its entropy (to make it hard to guess)
 * Its secrecy (to make it hard to be used by others)
 
-Its **length** is not really a requirement but a requirement to satisfy an acceptable entropy value. If it is not possible to generate a short password with good entropy, a large one but less random would be an alternative.
+The password **length** is not really a requirement but an alternative to achieve an acceptable strenghtness level. If it is not possible to generate a short password with good entropy, a large one but less random would work well. Of course, it doesn't really help if the password is large, but composed only with a few symbols, since it make them easily breakable, **as this project can show**. Besides that, it is usually easier to create meaningful passwords when they are large so it helps in memoriz them (secrecy). 
 
 #### A personal note about leaked password lists:
 Lists of leaked passwords became are very popular nowadays and even became incorporated into some products as a mean to avoid leaked passwords reuse on some services. They are also used to compose those famous lists of "Top most used passwords of the year" and even NIST recommend their usage (see below). I personally discourage the usage of such lists for 2 reasons:
