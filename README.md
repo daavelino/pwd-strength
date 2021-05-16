@@ -67,7 +67,7 @@ My point considers the following things:
 
 By "Memorized secrets" NIST means: _A Memorized Secret authenticator — commonly referred to as a password or, if numeric, a PIN — is a secret value intended to be chosen and memorized by the user._
 
-It is interesting to notice what follows from NIST's definition: _Memorized secrets need to be of sufficient complexity and secrecy that it would be impractical for an attacker to guess or otherwise discover the correct secret value. A memorized secret is something you know._
+It is interesting to observe what follows in the NIST's definition: _Memorized secrets need to be of sufficient complexity and secrecy that it would be impractical for an attacker to guess or otherwise discover the correct secret value. A memorized secret is something you know._
 
 So, according to the definition, Memorized secrets need to be of **sufficient complexity** and secrecy that it would be impractical for an attacker to **guess** or otherwise **discover** the correct secret value.
 
@@ -75,7 +75,7 @@ Let us assume for a moment that secrecy is a well understood concept and let us 
 
 The document provides an appendix [Appendix A—Strength of Memorized Secrets](https://pages.nist.gov/800-63-3/sp800-63b.html#appendix-astrength-of-memorized-secrets) where we can find some information about complexity:
 
-1. A.1 Introduction:_Complexity of user-chosen passwords has often been characterized using the information theory concept of entropy [Shannon]. While entropy can be readily calculated for data having deterministic distribution functions, estimating the entropy for user-chosen passwords is difficult and past efforts to do so have not been particularly accurate. For this reason, a different and somewhat simpler approach, based primarily on password length, is presented herein._ **(*Notice: that estimate the entropy for user-chosen passwords is precisely what this pwd-strength is about.)**
+1. A.1 Introduction: _Complexity of user-chosen passwords has often been characterized using the information theory concept of entropy [Shannon]. While entropy can be readily calculated for data having deterministic distribution functions, estimating the entropy for user-chosen passwords is difficult and past efforts to do so have not been particularly accurate. For this reason, a different and somewhat simpler approach, based primarily on password length, is presented herein._ **Notice** that estimate the entropy for user-chosen passwords is precisely what this pwd-strength is about.
 2. A.2 Length: _Users should be encouraged to make their passwords as lengthy as they want, within reason. Since the size of a hashed password is independent of its length, there is no reason not to permit the use of lengthy passwords (or pass phrases) if the user wishes. Extremely long passwords (perhaps megabytes in length) could conceivably require excessive processing time to hash, so it is reasonable to have some limit._
 3. A.3 Complexity: _For this reason, it is recommended that passwords chosen by users be compared against a “black list” of unacceptable passwords. This list should include passwords from previous breach corpuses, dictionary words, and specific words (such as the name of the service itself) that users are likely to choose. Since user choice of passwords will also be governed by a minimum length requirement, this dictionary need only include entries meeting that requirement._
 
@@ -84,7 +84,7 @@ So it seems that the criteria to determine if a user-choosen password is good en
 ## How the project works?
 
 #### The project structure:
-The project has been splitted into 2 files: `code.js` and `index.html`. code.js deals with all Javascript code required to build and process the data. index.html is the HTML 'holder' of the project, that receives the input from the user and present the results.
+The project has been splitted into 2 files: `code.js` and `index.html`. code.js deals with all Javascript code required to build and process the data and index.html is the HTML 'holder/skeleton' of the project, that receives the input from the user and present the results.
 
 #### How the password entropy is calculated?
 The password entropy is calculated by using the function `word_entropy(word, alphabet_length)`:
@@ -104,13 +104,13 @@ function word_entropy(word, alphabet_length) {
   }
 }
 ```
-The idea here is to apply the Boltzmann formula for the entropy `S = kln(omega)` where `omega` is the number of accessible states of a system, which is N^L, where L is the number of symbols in the password i.e. its alphabet and N is the number of possible symbols in a given alphabet, used to generate the password. Check [here](https://en.wikipedia.org/wiki/Password_strength#Entropy_as_a_measure_of_password_strength) for a detailed explanation. A simple math reveals that the value of the password entropy H would be 
-`H = L(log N /log 2`,
-providing the value of the entropy in terms of the number of bits. (That's the reason why it is necessary to divide it by log 2).
+The idea here is to apply the Boltzmann formula for the entropy `S = kln(omega)` where `omega` is the number of accessible states of a system, computed as N^L, where L is the number of symbols in the password i.e. its alphabet and N is the number of possible symbols in a given alphabet, used to generate the password. Check [here](https://en.wikipedia.org/wiki/Password_strength#Entropy_as_a_measure_of_password_strength) for a detailed explanation. A simple math reveals that the value of the password entropy H would be 
+`H = L(log N /log 2)`,
+providing the value of the entropy in bits. (That's the reason why it is necessary to divide it by log 2).
 
 That's how the password entropy is calculated in this project. Notice that, if the length of the password is 0, its entropy is also zero.
 
-The function `getUnique(word)` is used here to compute the number of unique symbols in a given password.
+The function `getUnique(word)` is used to compute the number of unique symbols in a given password.
 
 #### How the evaluation's metric is calculated?
 The metric is computed by the following code:
@@ -128,7 +128,7 @@ which takes into consideration:
 * the password entropy, `password_entropy`
 * the searching space entropy, `search_space_entropy`
 
-The general idea is that the metric should be a comparison between the password entropy and the search space entropy so the straightforward way of defining it would be:
+The general idea is that the metric should be a comparison between the password entropy and the search space entropy so a straightforward way of defining it would be:
 
 `metric = password_entropy / search_space_entropy;`
 
@@ -139,7 +139,7 @@ The searching space entropy can be understood as the best of all values for the 
 // (in bits):
   search_space_entropy = entropy_per_symbol * password_length;
 ```
-and, the entropy per symbol `entropy_per_symbol` is a "constant" that depends only on the number of symbols in a given alphabet. So, if a word is composed by using a given alphabet, the maximum entropy it could have is described by the 'search_space_entropy' value. The name 'search_space_entropy' was chosen taking into consideration the required effort to randomly search for a given word in a space generated by the given alphabet.
+and, the entropy per symbol `entropy_per_symbol` is a "constant" that depends only on the number of symbols in a given alphabet. So, if a word is composed by using a given alphabet, the maximum entropy it could have is described by the `search_space_entropy` value. The name `search_space_entropy` was chosen taking into consideration the required effort to randomly search for a given word in a space generated by the given alphabet.
 
 Although good, calculating the metric this way doesn't take into consideration the lenght of the password. For example, if one chooses a password of length 3 and uses 3 different symbols to generate this password, it would be considered _excellent_ by the evaluator, which is not a good idea. So it has been introduced the concept of weight based on the length of the password:
 
@@ -159,7 +159,7 @@ So, if a password length is smaller than what is required for that to be, there 
 ```
 Notice that the calculation of the weigth involves a variable called `alphabet_entropy = min_password_length * entropy_per_symbol;`. In this case, the weigth can be expanded as:
 
-`weight = (password_length * (min_password_length * entropy_per_symbol)) - search_space_entropy`
+`weight = password_length * (min_password_length * entropy_per_symbol) - search_space_entropy`
 
 and, since the weight is applied on the denominator of the metric, it would perform as a good penalty. If you decide for an implementation of this concept, **here is a good point to consider a tuning**.
 
@@ -212,7 +212,7 @@ const alphabets = {
   11:{"name":"Diceware word list","count":7776}
 };
 ```
-and represent the most common choices of symbols to be used as a password. They also present the number of different symbols each alphabet holds, making it simple to compute along the code. The list was obtained [here](https://en.wikipedia.org/wiki/Password_strength#Random_passwords), but it is not difficult to compute from the scratch.
+and represent the most common choices of symbols to be used in a password. They also present the number of different symbols each alphabet holds, making it simple to compute along the code. The list was obtained [here](https://en.wikipedia.org/wiki/Password_strength#Random_passwords), but it is not difficult to be computed from the scratch.
 
 In other words, the aphabet provides the "seed" to calculate the `alphabet_entropy`, here:
 
@@ -249,7 +249,7 @@ function breakit() {
   return counter;
 }
 ```
-It depends on two "hidden" variables, `max_break_attempts` and `disable_max_limit`, which are responsible for control the number of attempts until find the corresponding password. The first is defined at code.js. The second is passed when the user marks the checkbox "Disable limit for attempts?" on the HTML page. It also depends on the function `word_generator(password_alphabet, password_length)`:
+It depends on two "hidden" variables, `max_break_attempts` and `disable_max_limit`, which are responsible for control the number of attempts until find the corresponding password. The first is defined at the `code.js`file. The second is passed when the user marks the checkbox "Disable limit for attempts?" on the HTML page. It also depends on the function `word_generator(password_alphabet, password_length)`:
 
 ```javascript
 function* word_generator(array, size) {
@@ -285,9 +285,9 @@ function* word_generator(array, size) {
 }
 ```
 that basically uses combinatorics to create all words of `size` length consider the symbols at the `array` parameter.
-TThe idea is, instead of bruteforce all possible words in a given space, it generates all possible same-size words that use only the symbols present in the alphabet. That makes the bruteforce easier but still relevant.
+TThe idea is, instead of bruteforce all possible words in a given space, it generates all possible same-size words that use only the symbols present on the password's alphabet. That makes the bruteforce easier but still relevant.
 
-**Note**: This is just a simulation. If you are really interesting in understand how much is required to crack a password, please consider the value displayed at `Max. # of attempts to sweep the password space:`. It can give you a much more precise metric. **The breaking here is performed having the knowledge of the password alphabet, which is generally not the case in real world scenarios**.
+**Note**: This is just a simulation. If you are really interesting in understand how much effort is required to crack a password, please consider the value displayed at `Max. # of attempts to sweep the password space:`. It can give you a much more precise metric. The cracking here is performed having the knowledge of the password alphabet **as granted**, which is generally not the case in real-world cracking scenarios.
 
 #### Why the default password length is 8-characters long?
 This decision has been taken considering what is recommended by the NIST sp-800-63b, _Digital Identities Guidelines - Authentication and Lifecycle Management_ (June 2017, includes updates as of 03-02-2020) in its [Section 5.1: Requirements by Authenticator Type](https://pages.nist.gov/800-63-3/sp800-63b.html#reqauthtype):
@@ -298,6 +298,6 @@ _Memorized secrets SHALL be at least 8 characters in length if chosen by the sub
 The rest of the code is about make usability user-friendly so basically producing the HTML features to retrieve and present data.
 
 ## TODO:
-I assume this concept as done, but there is always something else that could be better. For example, a good code review would be appreciated, simplifying the code readability, double-checking the parameters passed and encapsulating 'loose' pieces of the code into functions (e.g. the metric calculation).
+I assume this concept as done, but there is always something else that could be better. For example, a good code review would be appreciated, simplifying the code readability, double-checking the parameters passed and encapsulating 'loose' pieces of the code into functions (e.g. the metric calculation). Those global variables should also be removed, as a matter of clearence.
 
-This will be done with time...
+This will be done with time, I hope...
