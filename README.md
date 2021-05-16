@@ -289,6 +289,11 @@ TThe idea is, instead of bruteforce all possible words in a given space, it gene
 
 **Note**: This is just a simulation. If you are really interesting in understand how much is required to crack a password, please consider the value displayed at `Max. # of attempts to sweep the password space:`. It can give you a much more precise metric. **The breaking here is performed having the knowledge of the password alphabet, which is generally not the case in real world scenarios**.
 
+#### Why the default password length is 8-characters long?
+This decision has been taken considering what is recommended by the NIST sp-800-63b, _Digital Identities Guidelines - Authentication and Lifecycle Management_ (June 2017, includes updates as of 03-02-2020) in its [Section 5.1: Requirements by Authenticator Type](https://pages.nist.gov/800-63-3/sp800-63b.html#reqauthtype):
+
+_Memorized secrets SHALL be at least 8 characters in length if chosen by the subscriber. Memorized secrets chosen randomly by the CSP or verifier SHALL be at least 6 characters in length and MAY be entirely numeric_.
+
 #### What is the rest of the code about?
 The rest of the code is about make usability user-friendly so basically producing the HTML features to retrieve and present data.
 
