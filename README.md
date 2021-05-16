@@ -30,7 +30,24 @@ The following values can only be changed in the code.js file:
 
 ## Some considerations about passwords:
 
-#### NIST sp-800-63b
+#### What are passwords?
+Passwords are those sequences of characters required as a proof of identity in an authentication system. A more interesting question, however, would be _what passwords are used for?_ They are used as a testemony (or token) of an identity. Authentication systems are instructed to associate a system-user identity to an entity, or claimant (a human being, a computer, a software, etc..), once this entity provides the correct password. (More specifically, once the entity provides the correct set of credential information, which could be the combination of _username_ and _password_ or even an additional authentication factor.
+
+#### What makes a good password?
+Basically, the following two things
+* Its entropy (to make it hard to guess)
+* Its secrecy (to make it hard to be used by others)
+
+#### A personal note about leaked password lists:
+Lists of leaked passwords became are very popular nowadays and even became incorporated into some products as a mean to avoid leaked passwords reuse on some services. They are also used to compose those famous lists of "Top most used passwords of the year" and even NIST recommend their usage (see below). I personally discourage the usage of such lists for 2 reasons:
+1. the **moral aspects** of using leaked data to address a problem. (even thought the data is "anonimyzed"), 
+2. the **lack of purpose** in using these lists instead of address the real problem of creating better passwords. This is the laziness solution for the problem.
+
+My point consists in another two things:
+1. mathematically, **most of those most used passwords are good passwords**. The problem is that they became somehow guessable and that's what we should help to solve. Enabling ordinary people to create good passwords.
+2. Passwords will be eventually reused and there's nothing we can do about it. It is a mathematical fact! If you don't believe me, [at least their hashes will](https://en.wikipedia.org/wiki/Hash_collision_(computer_science)!
+
+#### NIST sp-800-63b:
 * NIST sp-800-63b, _Digital Identities Guidelines - Authentication and Lifecycle Management_ (June 2017, includes updates as of 03-02-2020) in its [Section 5.1: Requirements by Authenticator Type](https://pages.nist.gov/800-63-3/sp800-63b.html#reqauthtype) says:
 > Memorized secrets SHALL be at least 8 characters in length if chosen by the subscriber. Memorized secrets chosen randomly by the CSP or verifier SHALL be at least 6 characters in length and MAY be entirely numeric.
 
