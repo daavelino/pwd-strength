@@ -222,7 +222,72 @@ In other words, the aphabet provides the "seed" to calculate the `alphabet_entro
   let alphabet_entropy = min_password_length * entropy_per_symbol;
 ```
 
+#### How the "Simulate break it?" function works?
+The breaking (cracking) simulation is trigged by the function `breakit()`:
+```javascript
+function breakit() {
+    let limit = max_break_attempts;
+    let disable_max_limit = document.getElementById("disable_max_limit").value;
+    let password = document.getElementById("password").value;
+    let password_length = password.length;
+    let password_alphabet = getUnique(password);
+    let passwords = word_generator(password_alphabet, password_length);
+    let counter = 1;
+    let tmp;
 
+    while(tmp = passwords.next()) {
+      if (counter > limit && disable_max_limit === "on") {
+        document.getElementById("break_result").innerHTML = "Max. attempts limit reached: "+format_number(limit)+". Not broken.";
+        break;
+      }
+      if (tmp.value === password) {
+        document.getElementById("break_result").innerHTML = "Found! Attempts until find it (random start): "+format_number(counter);
+        break;
+      }
+      counter = counter + 1;
+  }
+  return counter;
+}
+```
+It depends on two "hidden" variables, `max_break_attempts` and `disable_max_limit`, which are responsible for control the number of attempts until find the corresponding password. The first is defined at code.js. The second is passed when the user marks the checkbox "Disable limit for attempts?" on the HTML page. It also depends on the function `word_generator(password_alphabet, password_length)`:
+
+```javascript
+function* word_generator(array, size) {
+  // Generates all possible combinations of size-length words 
+  // from an array of characters: 
+  let tmp = suffle(array);
+  let chars = tmp.join("");
+
+  //Generate the first word for the password length 
+  //by the repetition of first character.
+  let word = (chars[0] || '').repeat(size);
+  yield word;
+
+  //Generate other possible combinations for the word
+  //Total combinations will be chars.length raised to power of word.length
+  //Make iteration for all possible combinations
+  for (j = 1; j < Math.pow(chars.length, size); j++) {
+
+    //Make iteration for all indices of the word
+    for(k = 0; k < size; k++) {
+
+      //check if the current index char need to be flipped to the next char.
+      if(!(j % Math.pow(chars.length, k))) {
+
+        // Flip the current index char to the next.
+        let charIndex = chars.indexOf(word[k]) + 1;
+        char = chars[charIndex < chars.length ? charIndex : 0];
+        word = word.substr(0, k) + char + word.substr(k + char.length);
+      }
+    }
+    yield word;
+  }
+}
+```
+that basically uses combinatorics to create all words of `size` length consider the symbols at the `array` parameter.
+TThe idea is, instead of bruteforce all possible words in a given space, it generates all possible same-size words that use only the symbols present in the alphabet. That makes the bruteforce easier but still relevant.
+
+**Note**: This is just a simulation. If you are really interesting in understand how much is required to crack a password, please consider the value displayed at `Max. # of attempts to sweep the password space:`. It can give you a much more precise metric. **The breaking here is performed having the knowledge of the password alphabet, which is generally not the case in real world scenarios**.
 
 #### What is the rest of the code about?
 The rest of the code is about make usability user-friendly so basically producing the HTML features to retrieve and present data.
