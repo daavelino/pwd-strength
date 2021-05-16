@@ -1,5 +1,5 @@
 # pwd-length
-A simple visualization of the strengthness of a password based on its entropy and, optionally, the required effort to break it via simple bruteforce.
+A concept intended to calculate the strengthness of a password based on its entropy and, optionally, a visualization about the required effort to crack it via simple bruteforce.
 
 This project tries to address and propose a solution for the comment at [NIST SP 800-63-b, Appendix A—Strength of Memorized Secrets](https://pages.nist.gov/800-63-3/sp800-63b.html#appendix-astrength-of-memorized-secrets) which says:
 
@@ -14,7 +14,7 @@ is very large but in no way a good one. A combination of both, entropy and size 
 
 > As a matter of comparison, this project categorize the password above as `weak`. [howsecureismypassword.net](https://howsecureismypassword.net/) says it would be required **7 hundred quintillion years** to crack it. Which one makes more sense to you?
 
-In any case, let's calculate some entropy for user-chosen passwords and check how difficult, in fact, it is to break it. I bet you'll be surprised by the results.
+In any case, let's calculate some entropy for user-chosen passwords and check how difficult, in fact, it is to crack it. I bet you'll be surprised by the results.
 
 Enjoy!
 
@@ -49,7 +49,7 @@ Basically, the following two things
 * Its entropy (to make it hard to guess)
 * Its secrecy (to make it hard to be used by others)
 
-The password **length** is not really a requirement but an alternative to achieve an acceptable strenghtness level. If it is not possible to generate a short password with good entropy, a large one but less random would work well. Of course, it doesn't really help if the password is large, but composed only with a few symbols, since it make them easily breakable, **as this project can show**. Besides that, it is usually easier to create meaningful passwords when they are large so it helps in memoriz them (secrecy). 
+The password **length** is not really a requirement but an alternative to achieve an acceptable strenghtness level. If it is not possible to generate a short password with good entropy, a large one but less random would work well. Of course, it doesn't really help if the password is large, but composed only with a few symbols, since it make them easily crackable, **as this project can show**. Besides that, it is usually easier to create meaningful passwords when they are large so it helps in memoriz them (secrecy). 
 
 #### A personal note about leaked password lists:
 Lists of leaked passwords became are very popular nowadays and even became incorporated into some products as a mean to avoid leaked passwords reuse on some services. They are also used to compose those famous lists of "Top most used passwords of the year" and even NIST recommend their usage (see below). I personally discourage the usage of such lists for 2 reasons:
