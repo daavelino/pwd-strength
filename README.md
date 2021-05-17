@@ -22,7 +22,7 @@ Enjoy!
 ```sh 
 git clone https://github.com/daavelino/pwd-strength
 cd pwd-strength
-python3 -m http.server
+python3 -m http.server # or any other webserver at your disposal.
 ```
 and point your browser to 
 >http://localhost:8000
