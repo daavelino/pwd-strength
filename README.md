@@ -29,7 +29,9 @@ and point your browser to
 
 You should see the following page:
 
-![Interface](https://github.com/daavelino/pwd-strength/blob/master/imgs/pwd-strength.png)
+<p align="center">
+  <img width="100%" src=".resources/imgs/interface.gif")
+</p>
 
 #### Edit the project parameters:
 The following values can only be changed in the code.js file:
