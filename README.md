@@ -229,21 +229,26 @@ The breaking (cracking) simulation is trigged by the function `breakit()`:
 ```javascript
 function breakit() {
     let limit = max_break_attempts;
-    let disable_max_limit = document.getElementById("disable_max_limit").value;
+    let disable_max_limit = document.getElementById("disable_max_limit").checked;
     let password = document.getElementById("password").value;
     let password_length = password.length;
     let password_alphabet = getUnique(password);
     let passwords = word_generator(password_alphabet, password_length);
     let counter = 1;
-    let tmp;
+    let tmp = null;
+
+    let t_start = new Date();
+    let el_time = null;
 
     while(tmp = passwords.next()) {
-      if (counter > limit && disable_max_limit === "on") {
-        document.getElementById("break_result").innerHTML = "Max. attempts limit reached: "+format_number(limit)+". Not broken.";
+      if (counter > limit && disable_max_limit === false) {
+        document.getElementById("break_result").innerHTML = `Max. attempts limit reached: ${format_number(limit)}. Not broken.`;
         break;
       }
       if (tmp.value === password) {
-        document.getElementById("break_result").innerHTML = "Found! Attempts until find it (random start): "+format_number(counter);
+        el_time = new Date();
+        el_time = el_time.getTime() - t_start.getTime();
+        document.getElementById("break_result").innerHTML = `Found! Attempts until find it (random start): ${format_number(counter)}. Elapsed time: ${format_number(el_time)} ms.`;
         break;
       }
       counter = counter + 1;
